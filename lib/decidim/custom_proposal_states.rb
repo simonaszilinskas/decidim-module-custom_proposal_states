@@ -10,6 +10,19 @@ module Decidim
   module CustomProposalStates
     module Overrides
       autoload :Proposal, "decidim/custom_proposal_states/overrides/proposal"
+      autoload :ImportProposalsToBudgets, "decidim/custom_proposal_states/overrides/import_proposals_to_budgets"
+      autoload :ImportProposalsToElections, "decidim/custom_proposal_states/overrides/import_proposals_to_elections"
+      autoload :WithdrawProposal, "decidim/custom_proposal_states/overrides/withdraw_proposal"
+      autoload :ImportProposals, "decidim/custom_proposal_states/overrides/import_proposals"
+      autoload :AnswerProposal, "decidim/custom_proposal_states/overrides/answer_proposal"
+      autoload :NotifyProposalAnswer, "decidim/custom_proposal_states/overrides/notify_proposal_answer"
+      autoload :ProposalAnswerCreator, "decidim/custom_proposal_states/overrides/proposal_answer_creator"
+      autoload :AnnouncementCell, "decidim/custom_proposal_states/overrides/announcement_cell"
+      autoload :AdminFilterable, "decidim/custom_proposal_states/overrides/admin_filterable"
+      autoload :ProposalPresenter, "decidim/custom_proposal_states/overrides/proposal_presenter"
+      autoload :DiffRenderer, "decidim/custom_proposal_states/overrides/diff_renderer"
+      autoload :ProposalsHelper, "decidim/custom_proposal_states/overrides/proposals_helper"
+      autoload :ProposalAnswersController, "decidim/custom_proposal_states/overrides/proposal_answers_controller"
     end
 
     def self.create_default_states!(component, admin_user, with_traceability: true)
