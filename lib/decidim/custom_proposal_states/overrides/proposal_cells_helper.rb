@@ -4,7 +4,6 @@ module Decidim
   module CustomProposalStates
     module Overrides
       module ProposalCellsHelper
-
         def badge_name
           if model.emendation?
             humanize_proposal_state state
@@ -17,7 +16,7 @@ module Decidim
           return ["muted"] if model.state.blank?
           return ["alert"] if model.withdrawn?
 
-          return [model.proposal_state&.css_class]
+          [model.proposal_state&.css_class]
         end
       end
     end
