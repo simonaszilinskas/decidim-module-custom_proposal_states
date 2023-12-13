@@ -23,6 +23,7 @@ module Decidim
       autoload :DiffRenderer, "decidim/custom_proposal_states/overrides/diff_renderer"
       autoload :ProposalsHelper, "decidim/custom_proposal_states/overrides/proposals_helper"
       autoload :ProposalAnswersController, "decidim/custom_proposal_states/overrides/proposal_answers_controller"
+      autoload :ProposalCellsHelper, "decidim/custom_proposal_states/overrides/proposal_cells_helper"
     end
 
     def self.create_default_states!(component, admin_user, with_traceability: true)
