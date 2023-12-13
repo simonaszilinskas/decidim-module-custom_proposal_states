@@ -57,9 +57,14 @@ module Decidim
       initializer "decidim_custom_proposal_states.action_controller", after: "decidim.action_controller" do
         config.to_prepare do
           ActiveSupport.on_load :action_controller do
+            Decidim::Proposals::ProposalsHelper.module_eval do
+              prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
+            end
+
             Decidim::Proposals::Admin::ApplicationController.prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
             Decidim::Proposals::Admin::ProposalsController.prepend Decidim::CustomProposalStates::Overrides::AdminFilterable
             Decidim::Proposals::Admin::ProposalAnswersController.prepend Decidim::CustomProposalStates::Overrides::ProposalAnswersController
+            Decidim::Proposals::ProposalsController.prepend Decidim::CustomProposalStates::Overrides::ProposalsController
           end
         end
       end
@@ -76,6 +81,8 @@ module Decidim
           Decidim::Proposals::Import::ProposalAnswerCreator.prepend Decidim::CustomProposalStates::Overrides::ProposalAnswerCreator
           Decidim::Proposals::ProposalPresenter.prepend Decidim::CustomProposalStates::Overrides::ProposalPresenter
           Decidim::Proposals::DiffRenderer.prepend Decidim::CustomProposalStates::Overrides::DiffRenderer
+
+          Decidim::Proposals::ProposalSearch.prepend Decidim::CustomProposalStates::Overrides::ProposalSearch
         end
       end
 
