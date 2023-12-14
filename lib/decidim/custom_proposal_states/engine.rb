@@ -60,7 +60,6 @@ module Decidim
             Decidim::Proposals::ProposalsHelper.module_eval do
               prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
             end
-
             Decidim::Proposals::Admin::ProposalsHelper.module_eval do
               prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
             end
@@ -68,8 +67,10 @@ module Decidim
               prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
             end
 
+            Decidim::Proposals::Admin::ApplicationController.prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
             Decidim::Proposals::Admin::ProposalsController.prepend Decidim::CustomProposalStates::Overrides::AdminFilterable
             Decidim::Proposals::Admin::ProposalAnswersController.prepend Decidim::CustomProposalStates::Overrides::ProposalAnswersController
+            Decidim::Proposals::ProposalsController.prepend Decidim::CustomProposalStates::Overrides::ProposalsController
           end
         end
       end
@@ -77,9 +78,7 @@ module Decidim
       initializer "decidim_custom_proposal_states.overrides.proposal" do
         Rails.application.reloader.to_prepare do
           Decidim::Amendable::AnnouncementCell.prepend Decidim::CustomProposalStates::Overrides::AnnouncementCell
-
           Decidim::Proposals::ProposalCellsHelper.prepend Decidim::CustomProposalStates::Overrides::ProposalCellsHelper
-
           Decidim::Proposals::Proposal.prepend Decidim::CustomProposalStates::Overrides::Proposal
           Decidim::Proposals::WithdrawProposal.prepend Decidim::CustomProposalStates::Overrides::WithdrawProposal
           Decidim::Proposals::Admin::ImportProposals.prepend Decidim::CustomProposalStates::Overrides::ImportProposals
@@ -88,6 +87,7 @@ module Decidim
           Decidim::Proposals::Import::ProposalAnswerCreator.prepend Decidim::CustomProposalStates::Overrides::ProposalAnswerCreator
           Decidim::Proposals::ProposalPresenter.prepend Decidim::CustomProposalStates::Overrides::ProposalPresenter
           Decidim::Proposals::DiffRenderer.prepend Decidim::CustomProposalStates::Overrides::DiffRenderer
+          Decidim::Proposals::ProposalSearch.prepend Decidim::CustomProposalStates::Overrides::ProposalSearch
         end
       end
 
