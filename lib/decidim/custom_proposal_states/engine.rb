@@ -57,7 +57,17 @@ module Decidim
       initializer "decidim_custom_proposal_states.action_controller", after: "decidim.action_controller" do
         config.to_prepare do
           ActiveSupport.on_load :action_controller do
-            Decidim::Proposals::Admin::ApplicationController.prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
+            Decidim::Proposals::ProposalsHelper.module_eval do
+              prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
+            end
+
+            Decidim::Proposals::Admin::ProposalsHelper.module_eval do
+              prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
+            end
+            Decidim::Proposals::ApplicationHelper.module_eval do
+              prepend Decidim::CustomProposalStates::Overrides::ProposalsHelper
+            end
+
             Decidim::Proposals::Admin::ProposalsController.prepend Decidim::CustomProposalStates::Overrides::AdminFilterable
             Decidim::Proposals::Admin::ProposalAnswersController.prepend Decidim::CustomProposalStates::Overrides::ProposalAnswersController
           end
@@ -67,6 +77,8 @@ module Decidim
       initializer "decidim_custom_proposal_states.overrides.proposal" do
         Rails.application.reloader.to_prepare do
           Decidim::Amendable::AnnouncementCell.prepend Decidim::CustomProposalStates::Overrides::AnnouncementCell
+
+          Decidim::Proposals::ProposalCellsHelper.prepend Decidim::CustomProposalStates::Overrides::ProposalCellsHelper
 
           Decidim::Proposals::Proposal.prepend Decidim::CustomProposalStates::Overrides::Proposal
           Decidim::Proposals::WithdrawProposal.prepend Decidim::CustomProposalStates::Overrides::WithdrawProposal
