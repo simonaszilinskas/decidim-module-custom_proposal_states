@@ -47,8 +47,8 @@ describe "Filter Proposals", :slow, type: :system do
         end
 
         it "lists custom proposals" do
-          create(:extended_proposal, :custom_state, answered_at: Time.current, state_published_at: Time.current ,
-                 component: component)
+          create(:extended_proposal, :custom_state, answered_at: Time.current, state_published_at: Time.current,
+                                                    component: component)
           visit_component
           expect(page).to have_content("foo bar")
 
