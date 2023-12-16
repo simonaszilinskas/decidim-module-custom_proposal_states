@@ -24,9 +24,9 @@ module Decidim
 
       # Subscribes to ActiveSupport::Notifications that may affect a Proposal.
       initializer "decidim_custom_proposal_states.subscribe_to_events" do
-        Rails.application.reloader.to_prepare do
-          return unless Decidim::CustomProposalStates.module_installed?("accountability")
+        next unless Decidim::CustomProposalStates.module_installed?("accountability")
 
+        Rails.application.reloader.to_prepare do
           # when a proposal is linked from a result
           event_name = "decidim.resourceable.included_proposals.created"
 
@@ -44,20 +44,21 @@ module Decidim
       end
 
       initializer "decidim_custom_proposal_states.overrides.budgets" do
-        Rails.application.reloader.to_prepare do
-          return unless Decidim::CustomProposalStates.module_installed?("budgets")
+        next unless Decidim::CustomProposalStates.module_installed?("budgets")
 
+        Rails.application.reloader.to_prepare do
           Decidim::Budgets::Admin::ImportProposalsToBudgets.prepend Decidim::CustomProposalStates::Overrides::ImportProposalsToBudgets
         end
       end
 
       initializer "decidim_custom_proposal_states.overrides.elections" do
-        Rails.application.reloader.to_prepare do
-          return unless Decidim::CustomProposalStates.module_installed?("elections")
+        next unless Decidim::CustomProposalStates.module_installed?("elections")
 
+        Rails.application.reloader.to_prepare do
           Decidim::Elections::Admin::ImportProposalsToElections.prepend Decidim::CustomProposalStates::Overrides::ImportProposalsToElections
         end
       end
+
       initializer "decidim_custom_proposal_states.action_controller", after: "decidim.action_controller" do
         config.to_prepare do
           ActiveSupport.on_load :action_controller do
@@ -96,9 +97,9 @@ module Decidim
       end
 
       initializer "decidim_custom_proposal_states.patch_engine" do
-        Rails.application.reloader.to_prepare do
-          return if Decidim::Gamification.find_badge(:accepted_proposals).blank?
+        next if Decidim::Gamification.find_badge(:accepted_proposals).blank?
 
+        Rails.application.reloader.to_prepare do
           Decidim::Gamification.find_badge(:accepted_proposals).reset = lambda { |model|
             proposal_ids = case model
                            when User
