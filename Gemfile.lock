@@ -184,8 +184,8 @@ PATH
   remote: .
   specs:
     decidim-custom_proposal_states (0.26.8)
-      decidim-core (>= 0.26.0, < 0.28.0)
-      decidim-proposals (>= 0.26.0, < 0.28.0)
+      decidim-core (~> 0.26.0)
+      decidim-proposals (~> 0.26.0)
       deface (>= 1.9)
 
 GEM
