@@ -44,6 +44,14 @@ module Decidim
       false
     end
 
+    config_accessor :base_command_class do
+      if Decidim.version.include?("0.26")
+        Rectify::Command
+      else
+        Decidim::Command
+      end
+    end
+
     def self.create_default_states!(component, admin_user, with_traceability: true)
       locale = Decidim.default_locale
       default_states = {

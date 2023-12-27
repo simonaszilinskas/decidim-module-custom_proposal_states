@@ -3,7 +3,7 @@
 module Decidim
   module CustomProposalStates
     module Admin
-      class CreateProposalState < Rectify::Command
+      class CreateProposalState < Decidim::CustomProposalStates.base_command_class
         def initialize(form, component)
           @form = form
           @component = component
