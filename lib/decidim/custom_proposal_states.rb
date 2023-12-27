@@ -30,6 +30,7 @@ module Decidim
 
     def self.module_installed?(mod)
       return Decidim.module_installed?(mod) if Decidim.respond_to?(:module_installed?)
+
       # return false unless Decidim::DependencyResolver.instance.needed?("decidim-#{mod}")
 
       # The dependency may not be automatically loaded through the Gemfile if the

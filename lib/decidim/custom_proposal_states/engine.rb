@@ -129,7 +129,6 @@ module Decidim
           end
 
           Decidim.find_component_manifest(:proposals).seeds do |participatory_space|
-            
             admin_user = Decidim::User.find_by(
               organization: participatory_space.organization,
               email: "admin@example.org"
