@@ -44,7 +44,7 @@ module Decidim
       false
     end
 
-    config_accessor :base_command_class do
+    def self.base_command_class
       if Decidim.version.include?("0.26")
         Rectify::Command
       else
